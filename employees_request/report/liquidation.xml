@@ -1,0 +1,438 @@
+<odoo>
+        <record id="pf_header_liquidation" model='report.paperformat'>
+            <field name="name">PF Header /iquidation</field>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">32</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+    <report
+            id="report_liquidation_action"
+            model="liquidation.dues"
+            string="Print Liquidation"
+            name="employees_request.report_liquidation_doc"
+            file="employees_request.report_liquidation_doc"
+            paperformat="employees_request.pf_header_liquidation"
+            report_type="qweb-pdf"/>
+    
+    
+    <template id="custom_header_liquidation">
+        <div class="header" style="font-size:14px;">
+             <table class="text-center" width="100%" style="font-family:KacstOne;">
+                <tr height="25px" style="vertical-align: top;">
+                    <td width="100%" style="vertical-align: top;">
+                        <img src="/employees_request/static/description/hed.png" style="display:block;margin-top:0px; height:150px; width: 100%;"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="article" style="font-size:14px;">
+          <t t-raw="0" />
+            <div t-attf-class="footer o_standard_footer o_company_#{res_company.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;text-align:center;">
+                <ul class="list-inline mb4" style="text-align:center;">
+                    <li t-if="res_company.footer_ar" class="list-inline-item d-inline"><span class="o_force_ltr" t-field="res_company.footer_ar"/></li>
+                </ul>
+                <ul class="list-inline mb4" style="text-align:center;">
+                    <li t-if="res_company.footer_en" class="list-inline-item d-inline"><span class="o_force_rtl" t-field="res_company.footer_en"/></li>
+                </ul>
+
+            </div>
+        </div>
+
+        </div>
+    </template>
+    <template id="report_liquidation_doc">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                
+                <t t-call="employees_request.report_liquidation_document"/>
+            </t>
+        </t>
+    </template>
+
+
+
+    <template id="report_liquidation_document">
+         <t t-set="o" t-value="o.with_context({'lang': 'en_US'})"/>
+                <t t-call="employees_request.custom_header_liquidation">
+                    <div class="page" style="font-size:16px;font-family:Arial;">
+                        <center>
+                            <h2 dir="rtl" style="text-decoration: underline;">
+                                تسوية مستحقات
+                                <br/>
+                                
+                                Benefits Statement
+                            </h2>
+                        </center>
+                        <hr style="border:1pt solid white;width:100%;color:black"/>
+ <table width="100%" dir="rtl">
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">الاسم:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.employee_id.name"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Name</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">الراتب الاساسي</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.wage"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:20%;">:B.salary</td>
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">الرقم الوظيفي:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.employee_id.job_num"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:EM NO</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">بدلات اخرى</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.other_allowance_fixed"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:20%;">:OtherALW</td>
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">الوظيفة:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.contract_id.job_id.name"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Job</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;" colspan="2">مخالصة حساب: (بدلات اجازة)</td>
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;" ></td>
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">تاريخ بدء العمل:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.contract_start_date"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Start</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;" colspan="2">إشعار ترك عمل التامينات الاجتماعية</td>
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;" ></td>
+                               
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">تاريخ إنتهاء العمل:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.contract_end_date"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:End</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;font-size:12px;"> عدد الايام من بداية العمل</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.days_number"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:20%;">:T Days</td>
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">رقم الاقامة:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.residency_num"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Iqama No</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;font-size:12px;"> عدد الايام من اخر اجازة </td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.days_num_lst_lev"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:20%;">: T Days</td>
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">رقم جواز السفر:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"><span t-field="o.passport_num"/></td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Pass NO</td>
+                                <td style="text-align:center; width:10%;"></td>
+                                  <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;"> ملاحظات اخرى</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;" colspan="2"><span t-field="o.other_info_note"/></td>
+                                
+                               
+                            </tr>
+                            <tr height="20px" style="vertical-align: middle;">
+                                <td style="border-bottom:1px solid black;text-align:right; width:20%;padding-right:5px;">نوع العمله:</td>
+                                <td style="border-bottom:1px solid black;text-align:center; width:20%;"> الريال السعودي</td>
+                                <td style="border-bottom:1px solid black;text-align:left; width:10%;">:Curr</td>
+                                <td style="text-align:center; width:10%;" colspan="4"></td>
+                               
+                            </tr>
+                            
+                        </table>
+                        <br/>
+                         <table width="100%"  style="border:1px solid black;">
+                             <thead>
+                                <tr style="background-color: #eeeeee">
+                                    <th style="border:1px solid black;text-align:center; width:10%;">Doc  <br/> المستند </th>
+                                    <th style="border:1px solid black;text-align:center;width:60%;" colspan="3" >Description  <br/> الشرح </th>
+                                    <th style="border:1px solid black;text-align:center; width:10%;">Details  <br/> التفصيل </th>
+                                    <th style="border:1px solid black;text-align:center; width:20%;">Amount  <br/> القيمة </th>
+                                    
+                                    
+                                </tr>
+                             </thead>
+                               <tbody>
+                                 <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">B.S.Month</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right: 5px;">راتب الشهر السابق</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.priv_salary !=0.0" t-field="o.priv_salary"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">C.S.Month</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right: 5px;">راتب الشهر الحالي</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.current_salary !=0.0" t-field="o.current_salary"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">OverTime</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right: 5px;"> ساعات إضافية</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.extra_hours !=0.0" t-field="o.extra_hours"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Other ALW</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بدلات اخرى</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.other_allowance !=0.0" t-field="o.other_allowance"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">indeminty of service</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بدل نهاية خدمة الـ5 الاولى</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.end_ser5y !=0.0" t-field="o.end_ser5y"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">indeminty of service</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بدل نهاية خدمة السنوات التالية</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.end_ser_after5y !=0.0" t-field="o.end_ser_after5y"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Annual Leave</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بدل الاجازة</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.leave_allowance !=0.0" t-field="o.leave_allowance"/></td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">A / T AWl.</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بدل تذكرة طيران1</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.air_alns !=0.0" t-field="o.air_alns"/></td>
+
+                                       
+                                   </tr>
+                                   
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">A / T AWl.</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;">بدل تذكرة طيران2</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "> </td>
+
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Total Of Additions</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;">مجمع الاستحقاقات الغير صافي 1</td>
+                                       
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; font-weight: bold;"><span t-if="o.total_alns !=0.0" style="text-decoration: underline;" t-field="o.total_alns"/></td>
+
+                                       
+                                   </tr>
+                                    <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Gosi Ded</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;">المؤسسة العامة للتأمينات الاجتماعية </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "> </td>
+                                       
+                                   </tr>
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%; font-size:12px;">Current / Putty Cash A/C</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;">الحساب الجاري  / العهدة </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> (-)</td>
+                                        <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.custody !=0.0" t-field="o.custody"/></td>
+                                   </tr>
+                                    <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Other  A/C</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> حسابات اخرى </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;">(-) </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "> </td>
+                                       
+                                   </tr>
+                                   
+                                    <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Total Of Deductions</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> مجمع حسميات الموظف 2 </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; font-weight: bold;"><span t-if="o.total_dtct !=0.0" style="text-decoration: underline;" t-field="o.total_dtct"/></td>
+                                       
+                                   </tr>
+                                    <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Bonus / Tips L Etc</td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بونص / إكراميات إلخ 3 </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%; "><span t-if="o.bonus !=0.0" t-field="o.bonus"/></td>
+                                       
+                                   </tr>
+                                   
+                                   <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:left; width:20%;">Miscellaneous </td>
+                                       
+                                       <td style="text-align:center;border-bottom:1px solid gray; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray;border-right:1px solid black;text-align:right; width:30%;padding-right:5px;"> بيانات اخرى 4 </td>
+                                       
+                                       <td style="text-align:center;border-right:1px solid black; width:10%;"> </td>
+                                       <td style="border-bottom:1px solid gray; text-align:center; width:20%;"><span t-if="o.other_info !=0.0" t-field="o.other_info"/></td>
+                                       
+                                   </tr>
+                                    <tr height="25px" style="vertical-align: middle;">
+                                       <td style="text-align:center;border:1px solid black; width:10%;"> </td>
+                                       <td style="border:1px solid black;text-align:center;" colspan="3">Total Net Amount
+                                       مجموع الاستحقاقات الصافية
+                                       </td>
+                                       <td style="text-align:center;border:1px solid black; width:10%;"> </td>
+                                       <td style="border:1px solid black; text-align:center; width:20%;"><span t-if="o.total_net !=0.0" t-field="o.total_net"/></td>
+                                       
+                                   </tr>
+                               </tbody>
+                         </table>
+                            <br/>
+                         <table width="100%"  style="border:2px solid black;">
+                             <thead>
+                                <tr height="40">
+                                    <th style="border:0px solid black; text-align:left;vertical-align: middle; width:30%;padding-left:30px;">Total Amount SAR</th>
+                                    <th style="border:0px solid black; text-align:center;vertical-align: middle; width:40%;"> - </th>
+                                    <th style="border:0px solid black; text-align:right;vertical-align: middle; width:30%;padding-right:30px;">المجموع بالريال السعودي </th>
+                                </tr>
+                             </thead>
+                         </table>
+                         <br/>
+                        <table width="100%"  style="border:1px solid black;">
+                             <thead>
+                                <tr height="25px" style="vertical-align: middle;">
+                                    <th style="border:1px solid black; text-align:center; width:20%;">
+                                        المستفيد
+                                        <br/>
+                                        beneficiary
+                                         <br/> <br/> <br/><br/>
+                                        
+                                    </th>
+                                    <th style="border:1px solid black; text-align:center; width:20%;">
+                                        الصندوق
+                                        <br/>
+                                        Cashier
+                                         <br/> <br/> <br/><br/>
+                                        
+                                    </th>
+                                    <th style="border:1px solid black; text-align:center; width:20%;">
+                                        المحاسبة
+                                        <br/>
+                                        Accountant
+                                         <br/> <br/> <br/><br/>
+                                        
+                                    </th>
+                                    <th style="border:1px solid black; text-align:center; width:20%;">
+                                        الادارة
+                                        <br/>
+                                        Manager
+                                         <br/> <br/> <br/><br/>
+                                        
+                                    </th>
+                                    <th style="border:1px solid black; text-align:center; width:20%;">
+                                        الموارد البشرية
+                                        <br/>
+                                        HR Deprt.
+                                         <br/> <br/> <br/><br/>
+                                        
+                                    </th>
+                                    
+                                </tr>
+                             </thead>
+                         </table>
+                        
+                        
+                        
+                       
+                    </div>
+                </t>
+    </template>
+</odoo>
+

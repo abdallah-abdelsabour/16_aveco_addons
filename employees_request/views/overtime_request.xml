@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="overtime_request_form" model="ir.ui.view">
+            <field name="name">overtime.request.form</field>
+            <field name="model">overtime.request</field>
+            <field name="arch" type="xml">
+                <form string="">
+                     <header>
+                        <button name="action_confirm" string="Confirm" groups="employees_request.request_access_account_moves"  class="oe_highlight" states="draft" type="object"/>
+                        <button name="action_paid" string="Pay" groups="employees_request.request_access_account_moves"  class="oe_highlight" states="confirm" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,paid" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                    </header>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button groups="employees_request.request_access_account_moves" class="oe_stat_button" name="button_journal_entries"
+                                    type="object"
+                                    icon="fa-bars">
+                             <field name="move_count" widget="statinfo" string="Journal Entries"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="contract_id"/>
+                                 <field name="basic_salary"/>
+                                <field name="alwns_amount"/>
+                                <field name="gross"/>
+                                <field name="loan_status"/>
+                            </group>
+                            <group>
+                                <field name="request_date"/>
+                                <field name="contract_start_date"/>
+                                <field name="extra_hours" widget="float_time"/>
+                                <field name="extra_hours_vacation" widget="float_time"/>
+                                <field name="hour_value"/>
+                                <field name="extra_day_value"/>
+                                <field name="extra_day_value_vacation"/>
+                                <field name="total_hours_due"/>
+                            </group>
+                             <group>
+                                <field name="pay_journal_id" attrs="{'invisible': [('state', '=', 'draft')],'required': [('state', '=', 'confirm')]}"/>
+                                <field name="debit_account_id"/>
+                                <field name="credit_account_id"/>
+                                <field name="journal_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="overtime_request_tree" model="ir.ui.view">
+            <field name="name">overtime.request.tree</field>
+            <field name="model">overtime.request</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" width="75px" />
+                    <field name="employee_id" width="100px" />
+                    <field name="request_date" width="75px" />
+                    <field name="basic_salary" width="75px" />
+                    <field name="extra_hours" widget="float_time" width="75px" />
+                    <field name="extra_hours_vacation" widget="float_time" width="75px" />
+                    <field name="hour_value" width="75px" />
+                    <field name="extra_day_value" sum="Total" width="75px" />
+                    <field name="extra_day_value_vacation" sum="Total" width="75px" />
+                    <field name="total_hours_due" width="75px"  sum="Total"/>
+                    <field name="state" width="75px" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_request_overtime" model="ir.actions.act_window">
+            <field name="name">OverTime Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">overtime.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

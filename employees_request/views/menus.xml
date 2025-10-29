@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="employee_request_root_mnu" name="Employee Requests"
+                  web_icon="employees_request,static/description/emp.png"
+                  groups="employees_request.request_access_user" sequence="5"/>
+        <menuitem id="salary_request_menu" name="Salary Request" parent="employee_request_root_mnu" sequence="5"/>
+        <menuitem id="leave_request_menu" name="Leave Request" parent="employee_request_root_mnu" sequence="10"/>
+        <menuitem id="overtime_request_menu" name="OverTime Request" parent="employee_request_root_mnu" sequence="15"/>
+        <menuitem id="housing_request_menu" name="Housing Request" parent="employee_request_root_mnu" sequence="20"/>
+        <menuitem id="action_end_service_menu" name="End of Service Request" parent="employee_request_root_mnu"
+                  sequence="25"/>
+        <menuitem id="action_liquidation_dues_menu" name="Liquidation OF Dues" parent="employee_request_root_mnu"
+                  sequence="30"/>
+
+
+        <menuitem id="configuration_request_menu" name="Configuration"
+                  groups="employees_request.request_access_account_moves" parent="employee_request_root_mnu"
+                  sequence="1000"/>
+<!--         <menuitem id="configuration_setting_request_menu" name="Setting" -->
+<!--                   groups="employees_request.request_access_account_moves" parent="configuration_request_menu" -->
+<!--                   action="employees_request.action_employee_request_config" sequence="5"/> -->
+        <menuitem id="wizard_employee_menu" name="Accounts Setting"
+                  groups="employees_request.request_access_account_moves" parent="configuration_request_menu"
+                  action="employees_request.action_apply_button" sequence="50"/>
+
+
+        <menuitem id="salary_request_menu_action" name="Salary Request" parent="salary_request_menu"
+                  action="employees_request.action_salary_request" sequence="5"/>
+        <menuitem id="leave_request_menu_action" name="Leave Allowance Request" parent="leave_request_menu"
+                  action="employees_request.action_leave_request" sequence="5"/>
+        <menuitem id="action_request_overtime_action" name="OverTime Request" parent="overtime_request_menu"
+                  action="employees_request.action_request_overtime" sequence="5"/>
+        <menuitem id="housing_request_menu_action" name="Housing Allowance Request" parent="housing_request_menu"
+                  action="employees_request.action_housing_allowance" sequence="5"/>
+        <menuitem id="action_end_service_action" name="End of Service Request" parent="action_end_service_menu"
+                  action="employees_request.action_end_service" sequence="5"/>
+        <menuitem id="liquidation_dues_list_action" name="Liquidation OF Dues" parent="action_liquidation_dues_menu"
+                  action="employees_request.action_liquidation_dues" sequence="5"/>
+
+
+    </data>
+</odoo>

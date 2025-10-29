@@ -1,0 +1,120 @@
+<odoo>
+    <record id="view_custody_filter" model="ir.ui.view">
+        <field name="name">view.custody.custody.filter</field>
+        <field name="model">custody.custody</field>
+        <field name="arch" type="xml">
+            <search string="Custody">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+                <field name="date_deadline"/>
+                <field name="amount"/>
+                <field name="project_id"/>
+
+
+                <filter name="date" string="Date" date="date"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_by_date" domain="[]" context="{'group_by': 'date'}"/>
+                    <filter string="Deadline" name="group_by_date_deadline" domain="[]"
+                            context="{'group_by': 'date_deadline'}"/>
+                    <separator/>
+                    <filter string="User" name="group_by_user" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Contact" name="group_by_partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Project" name="group_by_project" domain="[]" context="{'group_by': 'project_id'}"/>
+                    <separator/>
+                    <filter string="Status" name="group_by_state" domain="[]" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_custody_tree" model="ir.ui.view">
+        <field name="name">view.custody.custody.tree</field>
+        <field name="model">custody.custody</field>
+        <field name="arch" type="xml">
+            <tree string="Custody">
+                <field name="name"/>
+                <field name="date" optional="show"/>
+                <field name="user_id" optional="hide"/>
+                <field name="partner_id" optional="show"/>
+                <field name="date_deadline" optional="hide"/>
+                <field name="amount" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="project_id" optional="hide"/>
+                <field name="state" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_custody_form" model="ir.ui.view">
+        <field name="name">view.custody.custody.form</field>
+        <field name="model">custody.custody</field>
+        <field name="arch" type="xml">
+            <form string="Custody">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_approve" string="Approve" type="object" states="submit" class="oe_highlight"
+                            groups="custody_management.group_custody_management_admin"/>
+                    <button name="action_refuse" string="Refuse" type="object" states="submit"
+                            groups="custody_management.group_custody_management_manager"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,submit"
+                            groups="custody_management.group_custody_management_manager"/>
+                    <button name="action_reset_draft" string="set to Draft" type="object" states="cancel"
+                            groups="custody_management.group_custody_management_manager"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,refuse,cancel"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="action_get_payment" type="object"
+                                attrs="{'invisible': [('payment_id','=',False)]}" string="Payment" icon="fa-money"
+                                groups="custody_management.group_custody_management_manager"/>
+                        <field name="payment_id" invisible="1"/>
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name" string="Custody Number"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="date" attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="amount" attrs="{'readonly': [('state','=','approve')]}"/>
+                        </group>
+                        <group>
+                            <field name="date_deadline" attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="partner_id" attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="project_id" attrs="{'readonly': [('state','=','approve')]}"/>
+                            <field name="project_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_custody" model="ir.actions.act_window">
+        <field name="name">Custodies</field>
+        <field name="res_model">custody.custody</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

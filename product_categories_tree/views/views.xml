@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_inherit_product_category_form" model="ir.ui.view">
+            <field name="name">view_inherit_product_category_form</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="after">
+                    <group name="construction_code" col="2">
+                        <field name="construction_code" class="oe_inline"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inherit_product_category_tree" model="ir.ui.view">
+            <field name="name">view_inherit_product_category_tree</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="construction_code" class="oe_inline"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inherit_product_category_search" model="ir.ui.view">
+            <field name="name">view_inherit_product_category_search</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_search_view"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field" position="after">
+                    <field name="construction_code"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

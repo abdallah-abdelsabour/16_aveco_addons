@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_hr_job_form_inherit" model="ir.ui.view">
+            <field name="name">hr.job.form.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='no_of_recruitment']/.." position="after">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_template_from_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options']" position="inside">
+                    <span class="d-inline-block" attrs="{'invisible': [('type', '!=', 'consu')]}">
+                        <field name="is_business_item"/>
+                        <label for="is_business_item"/>
+                    </span>
+                </xpath>
+                <xpath expr="//page[@name='inventory']" position="after">
+                    <page name="bom" string="BOM" attrs="{'invisible': ['|', ('is_business_item', '=', False), ('type', '!=', 'consu')]}">
+                        <field name="currency_id" invisible="1"/>
+                        <div name="total_costs">
+                            <span class="d-inline-block col-3">
+                                <label for="total_material_cost"/>
+                                <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_labor_cost"/>
+                                <field name="total_labor_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_other_cost"/>
+                                <field name="total_other_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_cost"/>
+                                <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="project_name"/>
+                            </group>
+                            <group></group>
+                        </group>
+                        <notebook>
+                            <page name="material" string="Material">
+                                <field name="material_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_material" string="Add Material"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="labor" string="Labor">
+                                <field name="labor_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_labor" string="Add Labor"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="others" string="Others">
+                                <field name="other_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_other" string="Add Other"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_supplier_subcontractor_view" model="ir.ui.view">
+            <field name="name">supplier.subcontractor.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="is_subcontractor"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
+            <field name="name">Vendors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_supplier': 1,'res_partner_search_mode': 'supplier', 'default_is_company': True, 'default_supplier_rank': 1}</field>
+            <field name="domain">[('is_subcontractor','=',0)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new supplier in your address book
+              </p><p>
+                Odoo helps you easily track all activities related to a supplier.
+              </p>
+            </field>
+        </record>
+
+        <record id="res_partner_action_supplier_subcontractor" model="ir.actions.act_window">
+            <field name="name">Vendors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{'search_default_supplier': 1,'res_partner_search_mode': 'supplier', 'default_is_company': True, 'default_supplier_rank': 1, 'default_is_subcontractor': 1}</field>
+            <field name="domain">[('is_subcontractor','=',1)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new supplier in your address book
+              </p><p>
+                Odoo helps you easily track all activities related to a supplier.
+              </p>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <!-- Move the project menus with a standard sequence + 1 -->
+        <menuitem action="project.open_view_project_all" id="project.menu_projects" name="Projects" parent="project.menu_main_pm" sequence="2"/>
+        <menuitem action="project.open_view_project_all_group_stage" id="project.menu_projects_group_stage" name="Projects" parent="project.menu_main_pm" sequence="2" groups="project.group_project_stages"/>
+        <menuitem name="My Tasks" id="project.menu_project_management" parent="project.menu_main_pm" action="project.action_view_all_task" sequence="3" groups="base.group_no_one,project.group_project_user"/>
+
+        <!-- Tender Menus -->
+        <menuitem id="tender_costing_menu" name="Tender Costing" parent="project.menu_main_pm" sequence="2"/>
+        <menuitem id="project_customer_menu" name="Customers" parent="project.menu_main_pm" sequence="3"/>
+
+        <menuitem id="project_sub_contractor_menu" name="Sub Contractors" parent="project.menu_main_pm" sequence="4"/>
+        <menuitem id="project_supplier_menu" name="Vendors" parent="project_sub_contractor_menu" sequence="5" action="res_partner_action_supplier_subcontractor"/>
+        <menuitem id="project_purchase_order_menu" name="Purchase Orders" parent="project_sub_contractor_menu" sequence="6" action="purchase.purchase_form_action"/>
+        <menuitem id="project_account_bill_menu" name="Bills" parent="project_sub_contractor_menu" sequence="7" action="account.action_move_in_invoice_type"/>
+
+        <menuitem id="tender_costing_quotation_menu" name="Quotation" parent="tender_costing_menu" sequence="1" action="sale.action_quotations_with_onboarding"/>
+        <menuitem id="tender_costing_orders_menu" name="Orders" parent="project_customer_menu" sequence="2" action="sale.action_orders"/>
+        <menuitem id="tender_costing_customers_menu" name="Customers" parent="project_customer_menu" sequence="3" action="account.res_partner_action_customer"/>
+        <menuitem id="tender_costing_invoices_menu" name="Invoices" parent="project_customer_menu" sequence="4" action="account.action_move_out_invoice_type"/>
+        <menuitem id="tender_costing_contracts_menu" name="Contracts" parent="project.menu_project_config" sequence="3" action="sales_contract_and_recurring_invoices.subscription_contracts_action"/>
+
+        <record id="business_items_action" model="ir.actions.act_window">
+            <field name="name">Business Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="context">{"default_is_business_item":1}</field>
+            <field name="domain">[('is_business_item','=',1)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="tender_costing_business_items_menu" name="Business Items" parent="tender_costing_menu" sequence="4" action="business_items_action"/>
+        <menuitem id="tender_costing_products_menu" name="Products" parent="tender_costing_menu" sequence="5" action="sale.product_template_action"/>
+
+        <record id="view_project_form_inherit" model="ir.ui.view">
+            <field name="name">project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="project_code"/>
+                    <field name="project_type_id"/>
+                    <field name="is_construction_project" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='settings']" position="before">
+                    <page name="warehouse" string="Warehouse" attrs="{'invisible': [('is_construction_project', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="warehouse_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': [('is_construction_project', '=', True)]}"/>
+                                <field name="picking_type_id" options="{'no_create': True, 'no_open': True}" domain="[('warehouse_id', '=', warehouse_id), ('code', '=', 'incoming')]" attrs="{'required': [('is_construction_project', '=', True)]}"/>
+                                <label for="src_location_id" string="Location"/>
+                                <div name="locations" class="o_row">
+                                    <field name="src_location_id" options="{'no_create': True, 'no_open': True}" domain="[('warehouse_id', '=', warehouse_id)]" attrs="{'required': [('is_construction_project', '=', True)]}"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                                    <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('src_location_id', '=', False), ('src_location_id', '=', False)]}"/>
+                                    <field name="dest_location_id" options="{'no_create': True, 'no_open': True}" domain="[('warehouse_id', '=', warehouse_id)]" attrs="{'required': [('is_construction_project', '=', True)]}"/>
+                                </div>
+
+                            </group>
+                            <group></group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']//button" position="after">
+                    <field name="is_construction_quotation" invisible="1"/>
+                    <button name="open_cost_sheet" string="Open Cost Sheet" type="object" class="oe_highlight" attrs="{'invisible': [('is_construction_quotation', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="construction_project_id" options="{'no_create': True, 'no_open': True}" domain="[('partner_id', '=', partner_id)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_show_material_form" model="ir.ui.view">
+            <field name="name">view_show_material_form</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form string="Show Materials" create="0" edit="0">
+                    <sheet>
+                        <field name="name" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <div name="total_costs">
+                            <span class="d-inline-block col-3">
+                                <label for="total_material_cost"/>
+                                <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_labor_cost"/>
+                                <field name="total_labor_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_other_cost"/>
+                                <field name="total_other_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="d-inline-block col-3">
+                                <label for="total_cost"/>
+                                <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                        </div>
+                        <notebook>
+                            <page name="material" string="Material">
+                                <field name="material_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_material" string="Add Material"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="labor" string="Labor">
+                                <field name="labor_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_labor" string="Add Labor"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="others" string="Others">
+                                <field name="other_ids" widget="one2many_list">
+                                    <tree editable="top">
+                                        <control>
+                                            <create name="create_other" string="Add Other"/>
+                                        </control>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cost_sheet_form" model="ir.ui.view">
+            <field name="name">view_cost_sheet_form</field>
+            <field name="model">cost.sheet</field>
+            <field name="arch" type="xml">
+                <form string="Cost Sheet Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="project_code"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="sale_order_id" domain="[('partner_id', '=', partner_id), ('construction_project_id', '=', name)]"/>
+                                <field name="sale_order_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="cost_sheet_lines" string="Cost Sheet Lines">
+                                <field name="cost_sheet_line_ids" widget="one2many_list">
+                                    <tree editable="top" create="false">
+                                        <field name="product_template_id" invisible="1"/>
+                                        <field name="product_id"/>
+                                        <button name="action_show_material" string="Show Materials" type="object" class="oe_highlight"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="product_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="total_price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_cost_sheet_tree" model="ir.ui.view">
+            <field name="name">view_cost_sheet_tree</field>
+            <field name="model">cost.sheet</field>
+            <field name="arch" type="xml">
+                <tree string="Cost Sheet Tree">
+                    <field name="name"/>
+                    <field name="project_code"/>
+                    <field name="partner_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="sale_order_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_cost_sheet_search" model="ir.ui.view">
+            <field name="name">view_cost_sheet_search</field>
+            <field name="model">cost.sheet</field>
+            <field name="arch" type="xml">
+                <search string="Cost Sheet Search">
+                    <field name="name"/>
+                    <field name="project_code"/>
+                    <field name="partner_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="sale_order_date"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_cost_sheet" model="ir.actions.act_window">
+            <field name="name">Cost Sheet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cost.sheet</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_cost_sheet_tree"/>
+            <field name="search_view_id" ref="view_cost_sheet_search"/>
+            <field name="context">{"search_default_group_by_project_code": 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new cost sheet
+                </p><p>
+                    You must define a cost sheet for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="tender_costing_cost_sheet_menu" name="Cost Sheet" parent="tender_costing_menu" sequence="0" action="action_cost_sheet"/>
+
+        <record id="view_construction_deduction_form" model="ir.ui.view">
+            <field name="name">view.construction.deductions.form</field>
+            <field name="model">construction.deductions</field>
+            <field name="arch" type="xml">
+                <form string="Deductions">
+                    <sheet>
+                        <group name="main">
+                            <group>
+                                <field name="name"/>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="account_id" required='1'/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_construction_deduction_tree" model="ir.ui.view">
+            <field name="name">view.construction_deduction.tree</field>
+            <field name="model">construction.deductions</field>
+            <field name="arch" type="xml">
+                <tree string="Deductions">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="account_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_construction_deduction_search" model="ir.ui.view">
+            <field name="name">view.construction_deduction.search</field>
+            <field name="model">construction.deductions</field>
+            <field name="arch" type="xml">
+                <search string="Deductions">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="amount"/>
+                    <field name="account_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="construction_deduction_action" model="ir.actions.act_window">
+            <field name="name">Deductions</field>
+            <field name="res_model">construction.deductions</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Deductions.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="tender_costing_deductions_menu" name="Deductions" parent="project.menu_project_config" sequence="0" action="construction_deduction_action"/>
+
+        <record id="subscription_contracts_view_form" model="ir.ui.view">
+            <field name="name">subscription.contracts.view.form</field>
+            <field name="model">subscription.contracts</field>
+            <field name="inherit_id" ref="sales_contract_and_recurring_invoices.subscription_contracts_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="construction_project_id" options="{'no_create': True, 'no_open': True}" domain="[('partner_id', '=', partner_id)]"/>
+                    <field name="sale_order_id" domain="[('partner_id', '=', partner_id), ('construction_project_id', '=', construction_project_id)]"/>
+                    <field name="contract_amount"/>
+                </xpath>
+                <xpath expr="//field[@name='date_end']" position="after">
+                    <label for="final_insurance_percentage" string="Final Insurance"/>
+                    <div class="o_row">
+                        <div class="o_column">
+                            <field name="final_insurance_percentage" placeholder="Insurance Percentage" class="oe_inline"/> %
+                        </div>
+                        <div class="o_column">
+                            <field name="final_insurance_amount" placeholder="Insurance Amount"/>
+                        </div>
+                    </div>
+                    <label for="business_guarantee_percentage" string="Business Guarantee"/>
+                    <div class="o_row">
+                        <div class="o_column">
+                            <field name="business_guarantee_percentage" placeholder="Business Guarantee Percentage" class="oe_inline"/> %
+                        </div>
+                        <div class="o_column">
+                            <field name="business_guarantee_amount" placeholder="Business Guarantee Amount"/>
+                        </div>
+                    </div>
+                    <label for="down_payment_percentage" string="Down Payment"/>
+                    <div class="o_row">
+                        <div class="o_column">
+                            <field name="down_payment_percentage" placeholder="Down Payment Percentage" class="oe_inline"/> %
+                        </div>
+                        <div class="o_column">
+                            <field name="down_payment_amount" placeholder="Down Payment Amount"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='recurring_period']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_period_interval']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='next_invoice_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='contract_reminder']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='contract_line_ids']/.." position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

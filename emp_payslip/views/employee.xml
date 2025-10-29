@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       
+       <!-- Inherit Form View to Modify it -->
+       <record id="edit_view_employee_form" model="ir.ui.view">
+           <field name="name">hr.employee.form</field>
+           <field name="model">hr.employee</field>
+           <field name="inherit_id" ref="hr.view_employee_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='job_id']" position="after">
+                   <field name="account_journal_id" domain="[('type','in',['cash','bank'])]"/>
+               </xpath>
+
+               <xpath expr="//page[@name='personal_information']/group" position="inside">
+                    <group string="Residency Info">
+                        <field name="residency_num"/>
+                        <field name="residency_date"/>
+                    </group>
+                   <group string="Passport Info">
+                        <field name="passport_num"/>
+                        <field name="passport_date"/>
+                    </group>
+                    <group string="License Info">
+                        <field name="license_num"/>
+                        <field name="license_date"/>
+                    </group>
+                   
+                   
+               </xpath>
+               
+           </field>
+       </record>
+
+
+<!--        &lt;!&ndash; Inherit Form View to Modify it &ndash;&gt;-->
+<!--        <record id="form_view_hr_payslip_inherit" model="ir.ui.view">-->
+<!--            <field name="name">name.hr.payslip.form.inherit</field>-->
+<!--            <field name="model">hr.payslip</field>-->
+<!--            <field name="inherit_id" ref="hr_payroll_account.hr_payslip_view_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+
+<!--                <xpath expr="//button[@name='action_payslip_done']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': [('state', 'not in', 'approved')]}</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//button[@name='action_payslip_done']" position="after">-->
+<!--                    <button string="Approve" name="button_approve" type="object"-->
+<!--                            groups="emp_payslip.group_hr_payroll_approve_salary_payslip"-->
+<!--                            confirm="Are You Sure You Went To approve Payslip"-->
+<!--                            attrs="{'invisible': [('state', 'not in', 'verify')]}" class="oe_highlight"/>-->
+
+
+<!--                      <button string="Pay" name="button_pay" type="object"-->
+<!--                            groups="emp_payslip.group_hr_payroll_pay_salary_payslip"-->
+<!--                            confirm="Are You Sure You Went To Pay Payslip"-->
+<!--                            attrs="{'invisible': [('state', 'not in', 'done')]}" class="oe_highlight"/>-->
+
+
+
+<!--                </xpath>-->
+
+
+<!--                <xpath expr="//button[@name='compute_sheet']" position="attributes">-->
+<!--                    <attribute name="states">draft,verify,approved</attribute>-->
+<!--                </xpath>-->
+
+<!--                <xpath expr="//button[@name='action_payslip_cancel']" position="attributes">-->
+<!--                    <attribute name="states">draft,verify,approved,done</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//button[@name='action_refresh_from_work_entries']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'verify','approved']), ('employee_id', '=', False)]}</attribute>-->
+<!--                </xpath>-->
+
+
+
+
+<!--            </field>-->
+<!--        </record>-->
+
+
+<!--        <record model="ir.actions.server" id="action_hr_payroll_approve_payroll">-->
+<!--        <field name="name">Approve</field>-->
+<!--        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>-->
+<!--        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>-->
+<!--        <field name="binding_view_types">list</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="groups_id" eval="[(4,ref('emp_payslip.group_hr_payroll_approve_salary_payslip'))]"/>-->
+<!--        <field name="code">-->
+<!--            records.button_approve()-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--         <record model="ir.actions.server" id="action_hr_payroll_pay_payroll">-->
+<!--        <field name="name">Pay</field>-->
+<!--        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>-->
+<!--        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>-->
+<!--        <field name="binding_view_types">list</field>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="groups_id" eval="[(4,ref('emp_payslip.group_hr_payroll_pay_salary_payslip'))]"/>-->
+<!--        <field name="code">-->
+<!--            records.button_pay()-->
+<!--        </field>-->
+<!--    </record>-->
+
+    
+    </data>
+</odoo>

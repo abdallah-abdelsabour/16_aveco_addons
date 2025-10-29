@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+
+        <record id="view_res_branch" model="ir.ui.view">
+            <field name="name">res branch</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group col="2">
+                                <field name="name"/>
+                                <field name="company_id"/>
+                                <field name="user_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="order_ids" widget="many2many_tags"/>
+                                <field name="move_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_res_branch_tree" model="ir.ui.view">
+            <field name="name">res branch</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="res_branch_action">
+            <field name="name">Branch</field>
+            <field name="res_model">res.branch</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Branch"
+                  id="menu_root"/>
+
+        <menuitem name="Branch"
+                  id="sub_menu_branch"
+                  parent="branch.menu_root"
+                  action="res_branch_action"/>
+
+    </data>
+</odoo>

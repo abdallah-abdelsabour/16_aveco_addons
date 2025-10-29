@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="group_branch_company_user" model="res.groups">
+            <field name="name">Branch User</field>
+        </record>
+
+         <record model="ir.rule" id="company_branch_rule">
+            <field name="name">company_branch_rule</field>
+            <field name="model_id" ref="model_company_branch"/>
+            <field name="domain_force">[('user_id','=', user.id),]</field>
+            <field name="groups" eval="[(4, ref('company_branch.group_branch_company_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

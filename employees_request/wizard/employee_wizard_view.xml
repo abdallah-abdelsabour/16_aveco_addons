@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="employee_wizard_view" model="ir.ui.view">
+            <field name="name">employee.wizard.view</field>
+            <field name="model">employee.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <h2>Salary Request</h2>
+                            <field name="req_salary_acc_debit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_salary_acc_credit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_salary_journal_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+
+                        <group>
+                            <h2>OverTime Request</h2>
+                            <field name="req_overtime_acc_debit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_overtime_acc_credit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_overtime_journal_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <h2>Leave Request</h2>
+                            <field name="req_leave_acc_debit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_leave_acc_credit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_leave_journal_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+
+                        <group>
+                            <h2>End of Service Request</h2>
+                            <field name="req_endserv_acc_debit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_endserv_acc_credit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_endserv_journal_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <h2>Housing Request</h2>
+                            <field name="req_hous_acc_debit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_hous_acc_credit_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="req_hous_journal_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_save" type="object" string=" Save" class="btn-primary"/>
+                        <button type="object" special="cancel" string="Discard"
+                                class="btn-secondary"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+        <record id="action_apply_button" model="ir.actions.act_window">
+            <field name="name">employee wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

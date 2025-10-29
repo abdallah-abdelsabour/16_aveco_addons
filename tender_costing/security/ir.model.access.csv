@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_material_all,tender_costing.product_material_all,model_product_material,base.group_user,1,1,1,1
+access_product_labor_all,tender_costing.product_labor_all,model_product_labor,base.group_user,1,1,1,1
+access_product_other_all,tender_costing.product_other_all,model_product_other,base.group_user,1,1,1,1
+access_cost_sheet_all,tender_costing.cost_sheet_all,model_cost_sheet,base.group_user,1,1,1,1
+access_cost_sheet_line_all,tender_costing.cost_sheet_line_all,model_cost_sheet_line,base.group_user,1,1,1,1
+access_construction_deduction_all,tender_costing.construction_deduction_all,model_construction_deductions,base.group_user,1,1,1,1
+access_project_type_all,tender_costing.project_type_all,model_project_type,base.group_user,1,1,1,1

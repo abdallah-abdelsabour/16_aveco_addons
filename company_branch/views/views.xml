@@ -1,0 +1,51 @@
+<odoo>
+  <data>
+      <record id="view_company_branch_tree" model="ir.ui.view">
+          <field name="name">company branch</field>
+          <field name="model">company.branch</field>
+          <field name="arch" type="xml">
+          <tree string="branch" sample="1">
+             <field name="branch_name"/>
+              <field name="user_id" widget="many2many_tags"/>
+          </tree>
+          </field>
+      </record>
+    <record id="view_company_branch" model="ir.ui.view">
+          <field name="name">company branch</field>
+          <field name="model">company.branch</field>
+          <field name="arch" type="xml">
+              <form string="student" sample="1">
+              <sheet>
+                  <group>
+                      <group col="2">
+                          <field name="branch_name"/>
+                          <field name="user_id" widget="many2many_tags"/>
+<!--                         <field name="branch_id" widget="many2many_tags"/>-->
+                      </group>
+                      <group>
+                        <field name="sale_order_ids" widget="many2many_tags" />
+                         <field name="invoice_ids" widget="many2many_tags"/>
+                      </group>
+                  </group>
+              </sheet>
+              </form>
+          </field>
+      </record>
+
+
+    <record model="ir.actions.act_window" id="action_window">
+      <field name="name">company branch</field>
+      <field name="res_model">company.branch</field>
+      <field name="view_mode">form</field>
+    </record>
+
+    <menuitem name="Branch"
+              id="menu_root"/>
+
+    <menuitem name="branch"
+              id="menu_1_list"
+              parent="menu_root"
+              action="action_window"/>
+
+  </data>
+</odoo>

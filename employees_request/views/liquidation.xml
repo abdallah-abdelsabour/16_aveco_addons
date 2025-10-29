@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+          <record id="dues_order_sequence" model="ir.sequence">
+            <field name="name">dues.order</field>
+            <field name="code">dues.order</field>
+            <field name="prefix">LD/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="liquidation_dues_form" model="ir.ui.view">
+            <field name="name">liquidation.dues.form</field>
+            <field name="model">liquidation.dues</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <button name="action_confirm" string="Confirm" class="oe_highlight" states="draft" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,paid" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group string="Emp.Info">
+                                 <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                 <field name="contract_id" />
+                                 <field name="priv_salary"/>
+                                 <field name="current_salary"/>
+                                 <field name="wage"/>
+                                 <field name="gross"/>
+                                <label for="balance"/>
+                                <div name="balance" class="o_row">
+                                    <field name="balance" class="oe_inline"/>
+                                    <field name="balance_flag" class="oe_inline"/>
+                                    
+                                </div>
+                                
+                                 <field name="days_number"/>
+                            </group>
+                            <group>
+                                 <field name="request_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                 <field name="contract_start_date"/>
+                                <field name="jouin_date"/>
+                                <field name="contract_end_date"/>
+                                <field name="return_date_lst_lev"/>
+                                <field name="indemnity_date"/>
+                                <field name="passport_num"/>
+                                 <field name="residency_num"/>
+                                 <field name="job_num"/>
+                                 <field name="days_num_lst_lev"/>
+                            </group>
+                            <group string="Allowances">
+                                
+                                <field name="extra_hours" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <label for="other_allowance"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="other_allowance" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="note_allowance" placeholder="Notes"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                 <field name="end_ser5y" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                               
+                                  <field name="end_ser_after5y" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                  <field name="leave_allowance" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                  <field name="air_alns" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                  
+                                  <field name="other_allowance_fixed" invisible="1"/>
+                                  <field name="total_alns" />
+                            </group>
+                            <group string="Deductions">
+                                  <field name="all_dtct" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                  <field name="custody" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <label for="other_dtct"/>
+                                <div name="other_dtct" class="o_row">
+                                    <field name="other_dtct" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="note_dtact" placeholder="Notes"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                  <field name="total_dtct" />
+                            </group>
+                            <group >
+                                  <field name="bonus" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <label for="other_info"/>
+                                <div name="other_info" class="o_row">
+                                    <field name="other_info" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="other_info_note" placeholder="Notes"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                  <field name="total_net"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+         <record id="liquidation_dues_tree" model="ir.ui.view">
+            <field name="name">liquidation.dues.tree</field>
+            <field name="model">liquidation.dues</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="request_date"/>
+                    <field name="jouin_date"/>
+                    <field name="return_date_lst_lev"/>
+                    <field name="indemnity_date"/>
+                    <field name="residency_num"/>
+                    <field name="passport_num"/>
+                    <field name="balance"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_liquidation_dues" model="ir.actions.act_window">
+            <field name="name">Liquidation OF Dues</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">liquidation.dues</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        
+    
+    </data>
+</odoo>

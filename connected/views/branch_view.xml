@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+        <record id="view_res_company_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="login" position="after">
+                    <!-- Add the 'branch_id' field to the form view -->
+                    <group>
+                                            <field name="branch_ids" widget="many2many_tags"/>
+
+                    </group>
+                </field>
+
+            </field>
+        </record>
+        <!-- Extend the account.move form view -->
+        <record id="account_move_branch_extension" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="invoice_type" position="after">
+                    <!-- Add the 'branch_id' field to the form view -->
+
+                    <field name="branch_id" widget="many2many_tags"/>
+
+                </field>
+            </field>
+        </record>
+
+        <!-- Extend the sale.order form view -->
+            <record id="sale_order_branch_extension" model="ir.ui.view">
+                <field name="name">sale.order.form.inherit</field>
+                <field name="model">sale.order</field>
+                <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+
+                        <field name="payment_term_id" position="after">
+
+                            <!-- Add the 'branch_id' field to the form view -->
+                            <field name="branch_id"/>
+
+                        </field>
+
+                </field>
+            </record>
+
+        <record model="ir.ui.view" id="view_branch_form">
+            <field name="name">res.branch.form</field>
+            <field name="model">res.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_custom_branch_tree" model="ir.actions.act_window">
+            <field name="name">Branches</field>
+            <field name="res_model">res.branch</field>
+            <field name="view_mode">tree,form</field>
+            <!--    <field name="view_id" ref="view_custom_branch_tree"/>-->
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_custom_branch" name="Branch" parent="base.menu_users" action="action_custom_branch_tree"/>
+    </data>
+</odoo>

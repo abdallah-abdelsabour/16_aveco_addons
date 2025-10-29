@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+        <!-- Automated Action to Trigger Payment Allocation -->
+        <record id="action_auto_allocate_payment" model="account.payment.auto.allocation">
+            <field name="name">Auto Allocate Payment to First Invoice</field>
+            <field name="trigger_model_id" ref="account.model_account_payment"/>
+            <field name="trigger_on_create">1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+  </data>
+</odoo>
