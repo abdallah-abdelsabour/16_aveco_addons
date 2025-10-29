@@ -57,7 +57,7 @@
                 <header>
                     <button name="action_submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
                     <button name="action_approve" string="Approve" type="object" states="submit" class="oe_highlight"
-                            groups="custody_management.group_custody_management_admin"/>
+                            groups="custody_management.group_custody_management_admin,custody_management.group_custody_management_manager"/>
                     <button name="action_refuse" string="Refuse" type="object" states="submit"
                             groups="custody_management.group_custody_management_manager"/>
                     <button name="action_cancel" string="Cancel" type="object" states="draft,submit"
