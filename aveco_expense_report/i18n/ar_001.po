@@ -1,0 +1,324 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* aveco_expense_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-30 21:12+0000\n"
+"PO-Revision-Date: 2025-10-30 21:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "<span> - </span>"
+msgstr "<span> - </span>"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__account_code_from
+msgid "Account Code From"
+msgstr "رمز الحساب من"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Account Code Range"
+msgstr "نطاق رمز الحساب"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__account_code_to
+msgid "Account Code To"
+msgstr "رمز الحساب إلى"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Account Filters"
+msgstr "فلاتر الحسابات"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__account_group_id
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Account Group"
+msgstr "مجموعة الحسابات"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__account_ids
+msgid "Accounts"
+msgstr "الحسابات"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields.selection,name:aveco_expense_report.selection__expense_report_wizard__state_filter__all
+msgid "All Entries"
+msgstr "جميع القيود"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "All account filters work together (AND logic)."
+msgstr "جميع فلاتر الحسابات تعمل معاً (منطق AND)."
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__analytic_account_ids
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Analytic Accounts"
+msgstr "الحسابات التحليلية"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Analytic Accounts (Report Columns)"
+msgstr "الحسابات التحليلية (أعمدة التقرير)"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Code Range"
+msgstr "نطاق الرمز"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Company"
+msgstr "الشركة"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__create_date
+msgid "Created on"
+msgstr "تاريخ الإنشاء"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__partner_ids
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Customers"
+msgstr "العملاء"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__date_from
+msgid "Date From"
+msgstr "التاريخ من"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Date From must be before Date To."
+msgstr "التاريخ من يجب أن يكون قبل التاريخ إلى."
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Date Range"
+msgstr "نطاق التاريخ"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__date_to
+msgid "Date To"
+msgstr "التاريخ إلى"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Description"
+msgstr "الوصف"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__display_name
+msgid "Display Name"
+msgstr "الاسم الظاهر"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Entry Filter"
+msgstr "فلتر القيد"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__state_filter
+msgid "Entry State"
+msgstr "حالة القيد"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Expense Report"
+msgstr "تقرير المصروفات"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Expense Report Generator"
+msgstr "مولد تقرير المصروفات"
+
+#. module: aveco_expense_report
+#: model:ir.model,name:aveco_expense_report.model_expense_report_wizard
+msgid "Expense Report Wizard"
+msgstr "معالج تقرير المصروفات"
+
+#. module: aveco_expense_report
+#: model:ir.actions.act_window,name:aveco_expense_report.action_expense_report_wizard
+#: model:ir.ui.menu,name:aveco_expense_report.menu_expense_report_analytic
+msgid "Expense Report by Analytic"
+msgstr "تقرير المصروفات حسب التحليلي"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Expense Transactions Report"
+msgstr "تقرير حركات المصروفات"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Expense_Report_%s_to_%s.xlsx"
+msgstr "تقرير_المصروفات_%s_الى_%s.xlsx"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__account_code_from
+msgid "Filter accounts starting from this code"
+msgstr "تصفية الحسابات بدءاً من هذا الرمز"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__account_code_to
+msgid "Filter accounts up to this code"
+msgstr "تصفية الحسابات حتى هذا الرمز"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__account_group_id
+msgid "Filter by account group"
+msgstr "تصفية حسب مجموعة الحسابات"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "From"
+msgstr "من"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "From %s To %s"
+msgstr "من %s إلى %s"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Generate Excel Report"
+msgstr "إنشاء تقرير إكسل"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,field_description:aveco_expense_report.field_expense_report_wizard__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Leave all filters empty to include all accounts."
+msgstr "اترك جميع الفلاتر فارغة لتضمين جميع الحسابات."
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Leave empty for all accounts"
+msgstr "اتركه فارغاً لجميع الحسابات"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Leave empty for all analytic accounts"
+msgstr "اتركه فارغاً لجميع الحسابات التحليلية"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Leave empty for all customers"
+msgstr "اتركه فارغاً لجميع العملاء"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Leave empty for all groups"
+msgstr "اتركه فارغاً لجميع المجموعات"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__account_ids
+msgid "Leave empty to include all accounts"
+msgstr "اتركه فارغاً لتضمين جميع الحسابات"
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__analytic_account_ids
+msgid ""
+"Leave empty to include all analytic accounts. Selected accounts will become "
+"columns in the report."
+msgstr "اتركه فارغاً لتضمين جميع الحسابات التحليلية. الحسابات المحددة ستصبح أعمدة في التقرير."
+
+#. module: aveco_expense_report
+#: model:ir.model.fields,help:aveco_expense_report.field_expense_report_wizard__partner_ids
+msgid "Leave empty to include all customers"
+msgstr "اتركه فارغاً لتضمين جميع العملاء"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "No Analytic"
+msgstr "بدون تحليلي"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "No data found for the selected filters."
+msgstr "لم يتم العثور على بيانات للفلاتر المحددة."
+
+#. module: aveco_expense_report
+#: model:ir.model.fields.selection,name:aveco_expense_report.selection__expense_report_wizard__state_filter__posted
+msgid "Posted Only"
+msgstr "المرحّلة فقط"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid ""
+"Selected analytic accounts will become columns in the report. Leave empty to include\n"
+"                                    all analytic accounts found in the filtered transactions."
+msgstr "الحسابات التحليلية المحددة ستصبح أعمدة في التقرير. اتركه فارغاً لتضمين جميع الحسابات التحليلية الموجودة في الحركات المفلترة."
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "Specific Accounts"
+msgstr "حسابات محددة"
+
+#. module: aveco_expense_report
+#: model_terms:ir.ui.view,arch_db:aveco_expense_report.view_expense_report_wizard_form
+msgid "To"
+msgstr "إلى"
+
+#. module: aveco_expense_report
+#. odoo-python
+#: code:addons/aveco_expense_report/wizard/expense_report_wizard.py:0
+#, python-format
+msgid "Total"
+msgstr "الإجمالي"

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_expense_report_wizard_form" model="ir.ui.view">
+        <field name="name">expense.report.wizard.form</field>
+        <field name="model">expense.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Expense Report Generator">
+                <sheet>
+                    <group>
+                        <group string="Date Range">
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                        </group>
+                        <group string="Company">
+                            <field name="company_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Customers">
+                            <field name="partner_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                                   placeholder="Leave empty for all customers"/>
+                        </group>
+                        <group string="Entry Filter">
+                            <field name="state_filter" widget="radio"/>
+                        </group>
+                    </group>
+
+                    <group string="Analytic Accounts (Report Columns)">
+                        <gropup><dive class="fw-bold">Analytic Accounts</dive></gropup>
+                        <group>
+
+                            <field name="analytic_account_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                                   placeholder="Leave empty for all analytic accounts"
+                                   nolabel="1"/>
+                            <div class="text-muted" colspan="2">
+                                <p>Selected analytic accounts will become columns in the report. Leave empty to include
+                                    all analytic accounts found in the filtered transactions.</p>
+                            </div>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Account Filters" name="account_filters">
+                            <group>
+                                <group string="Specific Accounts">
+                                    <field name="account_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"
+                                           placeholder="Leave empty for all accounts"/>
+                                </group>
+                                <group string="Account Group">
+                                    <field name="account_group_id"
+                                           options="{'no_create': True}"
+                                           placeholder="Leave empty for all groups"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Account Code Range">
+                                    <label for="account_code_from" string="Code Range"/>
+                                    <div class="o_row">
+                                        <field name="account_code_from" placeholder="From"/>
+                                        <span> - </span>
+                                        <field name="account_code_to" placeholder="To"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <div class="text-muted">
+                                <p>All account filters work together (AND logic).</p>
+                                <p>Leave all filters empty to include all accounts.</p>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <footer>
+                    <button name="button_generate_report"
+                            string="Generate Excel Report"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_expense_report_wizard" model="ir.actions.act_window">
+        <field name="name">Expense Report by Analytic</field>
+        <field name="res_model">expense.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_expense_report_wizard_form"/>
+    </record>
+
+</odoo>
